@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Le coin doux</title>
+    <link rel="shortcut icon" type="x-icon" href="logo1.png">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+        .login-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .form-input {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            padding: 0 20px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #ff7c08;
+            background: #fff;
+        }
+        .input-with-icon {
+            position: relative;
+        }
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        .btn-login {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #ff7c08;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .btn-login::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background: #000;
+            z-index: -1;
+            transition: 0.3s;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+        .btn-login:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login-links a {
+            color: #ff7c08;
+            text-decoration: none;
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-logo img {
+            width: 120px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <div class="login-logo">
+                <a href="index.html">
+                    <img src="logo1.png" alt="Le coin doux">
+                </a>
+            </div>
+            <h2>Regjistrohuni</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <input type="text" class="form-input" placeholder="Emri" required>
+                        <i class="uil uil-user input-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <input type="email" class="form-input" placeholder="Email" required>
+                        <i class="uil uil-envelope input-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <input type="password" class="form-input" placeholder="Fjalekalimi" required>
+                        <i class="uil uil-lock input-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-with-icon">
+                        <input type="password" class="form-input" placeholder="Konfirmoni Fjaljekalimin" required>
+                        <i class="uil uil-lock-alt input-icon"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-login">Regjistrohu</button>
+            </form>
+            <div class="login-links">
+                <p>Already have an account? <a href="login.html">Sign In</a></p>
+                <p><a href="index.html">Back Home</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+</html>
