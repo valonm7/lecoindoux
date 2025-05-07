@@ -1854,12 +1854,12 @@ p {
 .todo-panel {
     position: fixed;
     top: 0;
-    right: -500px; 
-    width: 480px; 
+    right: -800px;
+    width: 750px;
     height: 100vh;
     background: #f8f8f8; 
-    box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.1); 
-    padding: 60px 20px 20px 20px; 
+    box-shadow: -15px 0px 30px rgba(0, 0, 0, 0.15);
+    padding: 80px 40px 40px 40px;
     z-index: 100; 
     transition: right 0.4s ease-in-out;
     overflow-y: auto;
@@ -1873,31 +1873,31 @@ p {
     font-family: 'Playfair Display', serif; 
     color: #0d0d25; 
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    font-size: 32px;
 }
 
 .todo-input-area {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    align-items: center; 
+    gap: 15px;
+    margin-bottom: 30px;
+    align-items: center;
 }
 
 .todo-input-area .form-input {
     flex-grow: 1; 
-    height: 45px; 
-    line-height: 45px; 
-    padding: 0 15px; 
+    height: 55px;
+    line-height: 55px;
+    padding: 0 20px;
+    font-size: 18px;
 }
 
 .todo-input-area .sec-btn {
     flex-shrink: 0; 
-    padding: 0 25px; 
-    height: 45px;
-    min-height: 45px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0 30px;
+    height: 55px;
+    min-height: 55px;
+    font-size: 18px;
 }
 
 .todo-items {
@@ -1910,11 +1910,11 @@ p {
     display: flex;
     align-items: center;
     background: #ffffff;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 3px 3px 5px #e0e0e0, -3px -3px 5px #ffffff; /* Subtle shadow */
-    transition: background-color 0.3s;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 3px 3px 5px #e0e0e0, -3px -3px 5px #ffffff;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .todo-item.not-done {
@@ -1930,24 +1930,40 @@ p {
     opacity: 0.7;
 }
 
-
-.todo-item span.task-text-done {
-    text-decoration: line-through;
-}
-
-.todo-item span {
+.todo-item span.task-text, .todo-item a.task-text {
     flex-grow: 1;
-    margin-right: 10px;
+    margin-right: 20px;
     cursor: pointer; 
     color: #0d0d25;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.todo-item span.task-text:hover, .todo-item a.task-text:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: translateX(5px);
+    color: #0d0d25;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+}
+
+/* Remove hover edit indication */
+.todo-item span.task-text:hover::after {
+    content: "";
+    opacity: 0;
 }
 
 .todo-item select {
-    margin-right: 5px;
-    padding: 3px 5px;
-    border-radius: 5px;
+    margin-right: 15px;
+    padding: 5px 12px;
+    min-width: 115px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    font-size: 13px;
+    font-size: 14px;
     background: #f3f3f5;
     cursor: pointer;
     flex-shrink: 0;
@@ -1958,28 +1974,29 @@ p {
     border: none;
     color: #ff8243; 
     cursor: pointer;
-    font-size: 18px;
-    padding: 0 5px;
-    margin-left: 5px;
+    font-size: 20px;
+    padding: 8px 10px;
+    margin-left: 12px;
     transition: color 0.3s;
     flex-shrink: 0;
 }
 
 .todo-item button:hover {
     color: #e0682b; 
+    transform: scale(1.1);
 }
 
 .close-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 25px;
+    right: 25px;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: bold;
     color: #aaa;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
     line-height: 1;
 }
 
@@ -2022,22 +2039,70 @@ p {
     margin-right: 10px;
 }
 
-.todo-item span.task-text {
-    flex-grow: 1;
-    margin-right: 10px;
-    cursor: pointer; 
-    color: #0d0d25;
-    padding: 5px 8px; 
+.todo-item span.task-text:hover::after {
+    content: "";
+    opacity: 0;
 }
 
+.todo-item a.task-text {
+    text-decoration: none;
+    display: block;
+    color: #0d0d25;
+}
 
-.todo-item span.task-text:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 5px;
+.todo-item a.task-text:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    transform: translateX(5px);
+    color: #0d0d25;
+}
+
+/* Make the hover effect more obvious */
+.todo-item span.task-text:hover, .todo-item a.task-text:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    transform: translateX(5px);
+    color: #0d0d25;
+}
+
+.todo-item span.task-text-done {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.todo-item span.task-text:active {
+    transform: translateX(0);
 }
 
 .todo-item span.task-text:hover::after {
-    content: " ✎";
-    opacity: 0.5;
-    font-size: 0.8em;
+    content: "";
+    opacity: 0;
+}
+
+/* Override all hover styles with white background at the end of the file */
+.todo-panel .todo-item span.task-text:hover,
+.todo-panel .todo-item a.task-text:hover {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    transform: translateX(5px) !important;
+    color: #0d0d25 !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 6px !important;
+}
+
+.todo-panel .todo-item span.task-text:hover::after {
+    content: "" !important;
+    opacity: 0 !important;
+}
+
+/* Fix the strikethrough style for completed tasks */
+.todo-panel .todo-item span.task-text-done, 
+.todo-panel .todo-item a.task-text-done {
+    text-decoration: line-through !important;
+    opacity: 0.7 !important;
+}
+
+/* Add subtle hover effect to entire item */
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 8px #e0e0e0, -4px -4px 8px #ffffff;
 }
