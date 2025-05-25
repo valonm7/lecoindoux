@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Code Entry - Le coin doux</title>
+    <link rel="shortcut icon" type="x-icon" href="logo1.png">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css"> <!-- You can reuse your main style.css -->
+    <style>
+        /* Styles from login.html can be reused or adapted */
+        body {
+            background-color: #f8f9fa; /* Ensure background for the whole page */
+        }
+        .code-entry-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .code-entry-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .code-entry-form h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .form-input {
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            padding: 0 20px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            text-align: center; /* Center text in input */
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #ff7c08;
+            background: #fff;
+        }
+        .btn-submit-code { /* Specific button style */
+            width: 100%;
+            height: 50px;
+            border-radius: 5px;
+            background-color: #28a745; /* Green for admin action */
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-submit-code:hover {
+            background-color: #218838;
+        }
+        #admin-code-error-message {
+            color: red;
+            margin-top: 15px;
+            min-height: 20px;
+            font-size: 0.9em;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #ff7c08;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-entry-container">
+        <div class="code-entry-form">
+            <div class="login-logo" style="margin-bottom: 20px;"> <!-- Re-using login-logo class -->
+                <a href="index.html">
+                    <img src="logo1.png" alt="Le coin doux" style="width: 100px;">
+                </a>
+            </div>
+            <h2>Vendos Kodin e Adminit</h2>
+            <form id="admin-code-form">
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="••••••" id="adminEntryCode" required>
+                    <!-- Using type="password" to hide the code -->
+                </div>
+                <div id="admin-code-error-message"></div>
+                <button type="submit" class="btn-submit-code">Vazhdo</button>
+            </form>
+            <a href="login.html" class="back-link">Kthehu te Hyrja</a>
+        </div>
+    </div>    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCx5tv97A5GBce-iOECUYs_3G_IIm9TKB0",
+            authDomain: "lecoindoux-6fda5.firebaseapp.com",
+            projectId: "lecoindoux-6fda5",
+            storageBucket: "lecoindoux-6fda5.appspot.com",
+            messagingSenderId: "945779817294",
+            appId: "1:945779817294:web:aa4940fbeee23e69d8fc1f",
+            measurementId: "G-ZNYERDRF1T"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminCodeForm = document.getElementById('admin-code-form');
+            const adminCodeInput = document.getElementById('adminEntryCode');
+            const errorMessageDiv = document.getElementById('admin-code-error-message');
+
+            const ADMIN_SECRET_CODE = "123456"; // The required admin code
+
+            // Check if user is logged in
+            onAuthStateChanged(auth, (user) => {
+                if (!user) {
+                    console.warn("User not logged in. Admin code entry page will still load.");
+                }
+            });
+
+            if (adminCodeForm) {
+                adminCodeForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    errorMessageDiv.textContent = ''; // Clear previous errors
+
+                    const enteredCode = adminCodeInput.value.trim();
+
+                    if (!enteredCode) {
+                        errorMessageDiv.textContent = "Ju lutem vendosni kodin.";
+                        return;
+                    }
+
+                    if (enteredCode === ADMIN_SECRET_CODE) {
+                        try {
+                            // Redirect to admin dashboard
+                            window.location.href = 'admin.html';
+                        } catch (error) {
+                            console.error('Error during admin code verification:', error);
+                            errorMessageDiv.textContent = "Ndodhi një gabim. Ju lutem provoni përsëri.";
+                        }
+                    } else {
+                        errorMessageDiv.textContent = "Kodi i pasaktë. Ju lutem provoni përsëri.";
+                        adminCodeInput.value = ''; // Clear the input
+                        adminCodeInput.focus();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

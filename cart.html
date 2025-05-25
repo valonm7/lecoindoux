@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shporta Juaj - Le coin doux</title> <!-- Changed title to Albanian -->
+    <link rel="shortcut icon" type="x-icon" href="logo1.png">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles from your previous cart.html - these are good */
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center; /* Vertically center for shorter content */
+            justify-content: center;
+            background-color: #f8f9fa;
+            padding-top: 40px; /* Adjusted padding */
+            padding-bottom: 40px;
+            box-sizing: border-box;
+        }
+        .content-box {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 700px; /* Slightly wider for more item details */
+        }
+        .content-box h2 { text-align: center; margin-bottom: 30px; color: #333; }
+        .btn-action { width: 100%; height: 50px; border-radius: 5px; background-color: #ff7c08; color: white; font-weight: bold; border: none; cursor: pointer; margin-top: 10px;}
+        .btn-action:disabled { background-color: #ff7c08aa; cursor: not-allowed;}
+        .btn-action.secondary { background-color: #6c757d; }
+        .btn-action.secondary:disabled { background-color: #6c757daa; }
+        .page-links { text-align: center; margin-top: 20px; }
+        .page-links a { color: #ff7c08; text-decoration: none; }
+        #cartMessage { text-align: center; margin-top: 15px; min-height: 20px; font-weight: bold; }
+
+        /* Item List Styling for cart.html */
+        .cart-item-list-page { /* Added -page suffix for clarity if needed */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart-item-list-page li {
+            display: flex;
+            /* justify-content: space-between; */ /* Let items flow more naturally */
+            align-items: center;
+            padding: 15px 0; /* More padding */
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item-list-page li:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-details-page { /* Added -page suffix */
+            flex-grow: 1; /* Takes up available space */
+            padding-right: 15px; /* Space before quantity controls */
+        }
+        .cart-item-details-page strong {
+            display: block; /* Product name on its own line */
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        .cart-item-details-page span { /* Price per unit */
+            font-size: 0.9em;
+            color: #555;
+        }
+        .item-notes-display-page { /* Added -page suffix */
+            font-size: 0.85em;
+            color: #777;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+
+        .quantity-controls-page { /* Added -page suffix */
+            display: flex;
+            align-items: center;
+            margin: 0 15px; /* Space around quantity */
+        }
+        .quantity-controls-page button {
+            background-color: #eee;
+            border: 1px solid #ddd;
+            color: #333;
+            padding: 4px 10px; /* Slightly larger buttons */
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 3px;
+        }
+        .quantity-controls-page span { /* Quantity number */
+            padding: 0 12px;
+            font-size: 1em;
+            min-width: 20px; /* Ensure space for number */
+            text-align: center;
+        }
+
+        .item-subtotal-page { /* Added -page suffix */
+            min-width: 90px; /* Ensure space for subtotal */
+            text-align: right;
+            font-weight: bold;
+            margin: 0 15px; /* Space around subtotal */
+        }
+
+        .remove-item-button-page { /* Added -page suffix and made it more specific */
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 1em;
+            line-height: 1; /* For better vertical alignment of × */
+        }
+        #emptyCartMessage { /* For the message inside the UL when empty */
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Optional: Include your site header if you want it consistently across pages -->
+    <!-- 
+    <header class="site-header">
+        ... your header HTML from index.html ...
+    </header> 
+    -->
+
+    <div class="page-container">
+        <div class="content-box">
+             <div class="login-logo" style="text-align: center; margin-bottom: 20px;">
+                 <a href="index.html"><img src="logo1.png" alt="Le coin doux" style="width:100px;"></a>
+            </div>
+            <h2>Shporta Juaj</h2>
+
+            <!-- Container for the list items -->
+            <div id="cartItemsContainer_PAGE"> <!-- ID for potential outer control if needed, but UL is primary target -->
+                <ul id="cartItemList" class="cart-item-list-page"> <!-- ID used by cart_logic.js -->
+                    <!-- Cart items will be dynamically inserted here by cart_logic.js -->
+                    <!-- The "emptyCartMessage" will be added by JS if the cart is empty -->
+                </ul>
+            </div>
+            <hr>
+            <div style="text-align: right; margin: 20px 0; font-size: 1.2em;">
+                <h4>Total: ALL <span id="cartTotal">0.00</span></h4> <!-- ID used by cart_logic.js -->
+            </div>
+            <div id="cartMessage" style="color: green; font-weight:bold;"></div> <!-- ID used by cart_logic.js -->
+            <button id="placeOrderBtn" class="btn-action">Vazhdo me Porosinë</button> <!-- ID used by cart_logic.js -->
+            <button id="clearCartBtn" class="btn-action secondary">Pastro Shportën</button> <!-- ID used by cart_logic.js -->
+
+            <div class="page-links">
+                <p><a href="index.html">Vazhdo Blerjet</a></p>
+                <p id="loginToOrderLink" style="display:none;"><a href="login.html?redirect=cart.html">Hyni për të porositur</a></p> <!-- ID used by cart_logic.js -->
+            </div>
+        </div>
+    </div>
+    <script type="module" src="cart_logic.js"></script>
+</body>
+</html>

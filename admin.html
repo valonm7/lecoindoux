@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Le Coin Doux</title>
+    <link rel="shortcut icon" type="x-icon" href="logo1.png">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            min-height: 100vh;
+            background: #f3f3f5;
+            padding: 40px 20px;
+        }
+        .admin-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+        .stat-card .trend {
+            font-size: 0.9em;
+            color: #28a745;
+        }
+        .trend.down {
+            color: #dc3545;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .table-responsive {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 0.9em;
+        }
+        .btn-view {
+            background: #e9ecef;
+            color: #495057;
+        }
+        .btn-edit {
+            background: #cce5ff;
+            color: #004085;
+        }
+        .order-details-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #ff7c08;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .orders-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .filter-select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .dashboard-chart-container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 30px 20px 10px 20px;
+            margin-bottom: 30px;
+        }
+        .dashboard-chart-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        @media (max-width: 600px) {
+            .dashboard-chart-container {
+                padding: 15px 5px 5px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Paneli i Administratorit</h1>
+                    <p>Mirë se vini, <span id="adminName">Admin</span></p>
+                </div>
+                
+            </div>
+
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="dashboard">Paneli</button>
+                
+            </div>
+               <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content active">
+            <div class="dashboard-chart-container">
+                <div class="dashboard-chart-title">Porositë dhe Të Ardhurat</div>
+                <canvas id="ordersRevenueChart" height="80"></canvas>
+            </div>
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <h3>Porosi Totale</h3>
+                    <div class="value" id="totalOrders">0</div>
+                    <div class="trend" id="ordersTrend">+1% nga muaji i fundit</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Xhiro Totale</h3>
+                    <div class="value" id="totalRevenue">ALL 0</div>
+                    <div class="trend" id="revenueTrend">+13% nga muaji i fundit</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Klientet ne total</h3>
+                    <div class="value" id="totalCustomers">0</div>
+                    <div class="trend" id="customersTrend">+300% nga muaji i fundit</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Vlera Mesatare e Porosise</h3>
+                    <div class="value" id="avgOrderValue">ALL 0</div>
+                    <div class="trend" id="avgOrderTrend">+120% nga muaj i fundit</div>
+                </div>
+            </div>
+        
+
+            <!-- Dashboard Tab -->
+            
+                
+            
+            <button id="signOutBtn" class="sec-btn primary-btn">Dil</button>
+            <!-- Orders Tab -->
+            <div id="ordersTab" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Menaxhimi i Porosive</h2>
+                    <div class="orders-filter">
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">Të Gjitha Statuset</option>
+                            <option value="pending">Në Pritje</option>
+                            <option value="processing">Në Proces</option>
+                            <option value="completed">Përfunduar</option>
+                            <option value="cancelled">Anuluar</option>
+                        </select>
+                        <select id="dateFilter" class="filter-select">
+                            <option value="all">Gjithë Kohës</option>
+                            <option value="today">Sot</option>
+                            <option value="thisWeek">Këtë Javë</option>
+                            <option value="thisMonth">Këtë Muaj</option>
+                        </select>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Orders will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Tab -->
+            <div id="customersTab" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Menaxhimi i Klientëve</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Emri</th>
+                                    <th>Email</th>
+                                    <th>Data e Regjistrimit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <!-- Klientët do të shtohen dinamikisht këtu -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderDetailsModal" class="order-details-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Order Details</h2>
+            <div id="orderDetailsContent"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="admin_logic.js"></script>
+</body>
+</html>

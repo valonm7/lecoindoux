@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Le coin doux</title>
+    <link rel="shortcut icon" type="x-icon" href="logo1.png">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="profile-page">
+        <div class="profile-container">
+            <div class="profile-header">
+                <a href="index.html" class="back-to-home">
+                    <i class="uil uil-arrow-left"></i> Back to Home
+                </a>
+                <div class="profile-avatar">
+                    <i class="uil uil-user-circle"></i>
+                </div>
+                <h2 id="userNameDisplay">Loading...</h2>
+                <p id="userEmail">Loading...</p>
+                
+            </div>
+
+            <div class="profile-form">
+                <div class="form-group">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" id="displayName" class="form-input" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="currentPassword">Current Password (required for email change)</label>
+                    <input type="password" id="currentPassword" class="form-input" placeholder="Enter current password">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password (optional)</label>
+                    <input type="password" id="newPassword" class="form-input" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" class="form-input" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" class="form-input" placeholder="Enter your delivery address" rows="3"></textarea>
+                </div>
+                <button id="saveProfileBtn" class="sec-btn primary-btn">Save Changes</button>
+                <div class="profile-actions">
+                    <button id="signOutBtn" class="sec-btn primary-btn">Sign Out</button>
+                </div>
+            </div>
+            <a href="admin.html" class="admin-link">Go to Admin Panel</a>
+
+            
+
+            
+        </div>
+    </div>
+
+    <style>
+        .orders-container {
+            padding: 20px;
+        }
+        .orders-list {
+            margin-top: 20px;
+        }
+        .order-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .order-id {
+            font-weight: bold;
+            color: #ff7c08;
+        }
+        .order-date {
+            color: #666;
+        }
+        .order-total {
+            font-weight: bold;
+            color: #333;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .loading-orders {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .no-orders {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+        .admin-access-form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .message-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .message-feedback.error {
+            background-color: #ffe6e6;
+            color: #d63031;
+        }
+        .message-feedback.success {
+            background-color: #e6ffe6;
+            color: #27ae60;
+        }
+        .admin-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #ff7c08;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+    </style>
+
+    <!-- Firebase Logic -->
+    <script type="module" src="profile_page.js"></script>
+    <script type="module" src="profile_logic.js"></script>
+</body>
+</html>
